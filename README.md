@@ -41,3 +41,7 @@
   - localhost:8000に立ち上げ
 - gulp test
   - テストを走らせる
+
+## 備考
+開発スピードは落ちますが、CleanArchitectureとFluxの合わせ技のようなアーキテクチャを使うときもあります。
+https://github.com/sato0203/TypeScript-React-CleanFlux
