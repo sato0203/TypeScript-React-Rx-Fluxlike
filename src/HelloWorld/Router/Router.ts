@@ -5,11 +5,14 @@ import { DispatcherInjectSymbol, Dispatcher } from "../Dispatchers/Dispatcher";
 import { IView } from "../Views/Base/IView";
 import { IStore } from "../Stores/Base/IStore";
 import { IModel } from "../Stores/Base/IModel";
+import { List } from "linqts";
+import createHistory from 'history/createBrowserHistory';
+
+const hist = createHistory();
 
 export class Route{
     constructor(public path:string,public view:IView<any>,public store:IStore<any>){}
 }
-
 @injectable()
 export class Router implements IRouter{
     private model:IModel;
@@ -27,31 +30,37 @@ export class Router implements IRouter{
             this.currentRoute.view.createView(model);
         })
     }
-
-    constructor(@inject(DispatcherInjectSymbol)dispatcher:Dispatcher){
-        dispatcher.pushWorldButton.subscribe(() => {
-            console.log("pushWorld")
-            const nextRoute = this.routes.filter(x => x.path == "/world")[0]; 
-            this.currentRoute = nextRoute
-        })
-        dispatcher.pushHelloButton.subscribe(()=> {
-            const nextRoute = this.routes.filter(x => x.path == "/hello")[0]; 
-            this.currentRoute = nextRoute
-        })
-    }
-    public setRoutes = (routes:Route[]) => {
+    public initialize = (routes: Route[]) => {
         this.routes = routes;
-        if(this.currentRoute == null){
-            this.currentRoute = routes[0];
+        var possibleViews = new List(routes).Where(x => location.pathname.startsWith(x.path)).OrderByDescending(x => x.path.length).ToArray();
+        console.dir(possibleViews);
+        if(possibleViews.length > 0){
+            this.set(possibleViews[0].path)
+        }
+        else{
+            this.set(routes[0].path)
         }
 
-        console.dir(this.routes)
+        hist.listen((loc,action) => {
+            this.set(loc.pathname);
+        })
     }
-    
-    
+    public set = (path:string) => {
+        console.log(path)
+        if(this.routes.filter(x => x.path == path).length == 0){
+            path = this.routes[0].path;
+        }
+        const nextRoute= this.routes.filter(x => x.path == path)[0];
+        this.currentRoute = nextRoute;
+    }
+    public push = (path:string) => {
+        hist.push(path,path);
+    }
 }
 
 export interface IRouter{
-    setRoutes:(routes:Route[]) => void
+    set:(path:string) => void;
+    push:(path:string) => void;
+    initialize:(routes:Route[]) => void;
 }
 export const IRouterInjectSymbol = Symbol();

@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import "reflect-metadata";
 import {Container, injectable, inject} from "inversify";
+import "reflect-metadata";
 import {Dispatcher, DispatcherInjectSymbol} from "./HelloWorld/Dispatchers/Dispatcher";
 import { Router,IRouter, IRouterInjectSymbol, Route } from "./HelloWorld/Router/Router";
 import { IHelloStore, IHelloStoreInjectSymbol, HelloStore } from "./HelloWorld/Stores/HelloStore";
@@ -29,9 +29,8 @@ var route:Route[] = [
     new Route("/world",container.get<IWorldView>(IWorldViewInjectSymbol),container.get<IWorldStore>(IWorldStoreInjectSymbol)),
 ]
 
-const router = container.get<Router>(IRouterInjectSymbol);
-router.setRoutes(route);
-
+const router = container.get<IRouter>(IRouterInjectSymbol);
+router.initialize(route);
 
 //Inject Dispatcher
 var server = container.get<Dispatcher>(DispatcherInjectSymbol);

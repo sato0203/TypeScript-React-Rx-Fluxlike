@@ -4,20 +4,20 @@ import { injectable, inject } from "inversify";
 import { DispatcherInjectSymbol, Dispatcher } from "../Dispatchers/Dispatcher";
 import { IModel } from "./Base/IModel";
 import { IStore } from "./Base/IStore";
+import { IRouterInjectSymbol, Router } from "../Router/Router";
 
 @injectable()
 export class HelloStore implements IHelloStore{
-    constructor(@inject(DispatcherInjectSymbol)dispatcher:Dispatcher){
+    constructor(@inject(DispatcherInjectSymbol)dispatcher:Dispatcher,
+                @inject(IRouterInjectSymbol)router:Router){
         this.model = new Rx.BehaviorSubject<HelloModel>(new HelloModel(dispatcher));
         dispatcher.changeHelloString.subscribe(x => {
             let newModel = this.model.getValue();
             newModel.formString = x;
             this.model.next(newModel);
         })
-        dispatcher.changeWorldString.subscribe(x => {
-            let newModel = this.model.getValue();
-            newModel.formString = x;
-            this.model.next(newModel)
+        dispatcher.pushWorldButton.subscribe(() => {
+            router.push("/world")
         })
     }
     public model:Rx.BehaviorSubject<HelloModel>;
