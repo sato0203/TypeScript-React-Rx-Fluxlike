@@ -12,11 +12,11 @@
 ### 解決策
 - Rxで状態を管理し、Reactで描画する。
   - RxがReactのStateの役割を担う。
-  - Rxを用いて状態を管理して、ReactDOMに渡してRenderを渡すことで実現した。
+  - Rxを用いて状態を管理して、ReactDOMにその状態を渡してDOM生成をすることで実現した。
 
 ## 概要図
 完全なFluxではおそらくないが、思想は則っているつもり
-![概要](https://gist.githubusercontent.com/sato0203/b07d593afb954cfedac6d98acb218f52/raw/93f33b7cc462122bf7aa8989891bfbbf4e083747/figure.png "概要")
+![概要](https://gist.githubusercontent.com/sato0203/b07d593afb954cfedac6d98acb218f52/raw/0a43a0d1e65120ff122d0cca296b3b6c4c46aacb/figure.png "概要")
 
 ## 入っているフレームワーク等
 - 実装
