@@ -1,3 +1,6 @@
+import axios from 'axios';
+import {AxiosResponse} from "axios";
+
 export class Common{
     //key名に対応したgetパラメーターを取得する
     public static getParameter = (key:string) => {
@@ -13,5 +16,11 @@ export class Common{
             }
         }
         return "";
+    }
+    public static async getOAuthToken(userName:string,password:string){
+        return await axios.post<string>("/oauth/token",{
+            username:userName,
+            password:password
+        }).then(res => res.data)
     }
 }

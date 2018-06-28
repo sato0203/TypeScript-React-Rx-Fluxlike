@@ -1,0 +1,5 @@
+{
+    "client_id" : "CLINENT_ID",
+    "client_secret" : "CLINENT_SECRET",
+    "oauthEndpoint":"http:OAUTH-ENDPOINT"
+}

@@ -11,6 +11,7 @@ gulp.task("react-compile", () => {
     .pipe(plumber())
     .pipe(webpackStream(webpackConfig, webpack))
     .pipe(gulp.dest("dist"))
+    .pipe(gulp.dest("../server/public"))
 });
 
 gulp.task('watch', function() {
@@ -36,4 +37,5 @@ gulp.task('test',function(){
 });
 
 gulp.task('default',['react-compile'])
-gulp.task('develop', ['react-compile','watch','webserver']);
+gulp.task('develop', ['react-compile','watch','webserver'])
+gulp.task('production',['react-compile','watch'])
