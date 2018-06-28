@@ -42,12 +42,14 @@
     - コンパイル
   - gulp develop
     - localhost:8000に立ち上げ
+    - frontend側のコードが書き換わるたびにコンパイルが走る。
   - gulp test
     - テストを走らせる
 - server
   - gulp
     - サーバー立ち上げ
-      - frontend,server側のコード書き換えにも対応
+    - frontendのコードを書き換えのたびにコンパイルする。
+    - serverのコードを書き換えるたびに自動的にサーバーを立ち上げ直し
 
 ## 備考
 開発スピードは落ちますが、CleanArchitectureとFluxの合わせ技のようなアーキテクチャを使うときもあります。
