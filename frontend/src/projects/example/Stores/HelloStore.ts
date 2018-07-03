@@ -5,7 +5,7 @@ import { DispatcherInjectSymbol, Dispatcher } from "../Dispatchers/Dispatcher";
 import { IModel } from "./Base/IModel";
 import { IStore } from "./Base/IStore";
 import { IRouterInjectSymbol, Router } from "../Router/Router";
-import { Common } from "../../Common/Common";
+import { Common } from "../../../common/Common";
 
 @injectable()
 export class HelloStore implements IHelloStore{

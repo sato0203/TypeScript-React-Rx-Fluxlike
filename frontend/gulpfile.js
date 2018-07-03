@@ -10,23 +10,12 @@ gulp.task("react-compile", () => {
   return gulp.src(["./src/**/*.ts",".src/**/.tsx"])
     .pipe(plumber())
     .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulp.dest("dist"))
-    .pipe(gulp.dest("../server/public"))
+    .pipe(gulp.dest("../server/js"))
 });
 
 gulp.task('watch', function() {
     return gulp.watch(["./src/**/*.ts","./src/**/*.tsx"], ['react-compile'])
   });
-  
-gulp.task('webserver', function() {
-    return gulp.src('./')
-        .pipe(webserver({
-            host: '127.0.0.1',
-            livereload: true,
-            fallback: "index.html"
-        })
-    );
-});
 
 gulp.task('test',function(){
     gulp.src("./src/test/**/*.ts",{read:false})
@@ -37,5 +26,4 @@ gulp.task('test',function(){
 });
 
 gulp.task('default',['react-compile'])
-gulp.task('develop', ['react-compile','watch','webserver'])
-gulp.task('production',['react-compile','watch'])
+gulp.task('production',['react-compile','watch']) // server側から叩く用

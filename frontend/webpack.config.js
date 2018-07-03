@@ -1,9 +1,15 @@
+const entry = {};
+var fs = require("fs");
+const projectList = fs.readdirSync("./src/projects");
+projectList.forEach(x => {
+    entry[x] = `./src/projects/${x}/index.ts`;
+})
+
 module.exports = {
     mode: "production",
-    entry: "./src/index.ts",
+    entry: entry,
     output: {
-        filename: "bundle.js",
-        path: __dirname + "/dist"
+        filename: "[name].bundle.js",
     },
 
     // Enable sourcemaps for debugging webpack's output.

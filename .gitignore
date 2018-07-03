@@ -80,5 +80,4 @@ tests/baselines/reference/dt
 
 frontend/dist/
 server/configure-local.json
-server/public/bundle.js
-server/public/bundle.js.map
+server/js/

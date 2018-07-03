@@ -2,12 +2,12 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {Container, injectable, inject} from "inversify";
 import "reflect-metadata";
-import {Dispatcher, DispatcherInjectSymbol} from "./HelloWorld/Dispatchers/Dispatcher";
-import { Router,IRouter, IRouterInjectSymbol, Route } from "./HelloWorld/Router/Router";
-import { IHelloStore, IHelloStoreInjectSymbol, HelloStore } from "./HelloWorld/Stores/HelloStore";
-import { IWorldStoreInjectSymbol, WorldStore, IWorldStore } from "./HelloWorld/Stores/WorldStore";
-import { IHelloViewInjectSymbol, IHelloView, HelloView } from "./HelloWorld/Views/HelloView";
-import { IWorldViewInjectSymbol, IWorldView, WorldView } from "./HelloWorld/Views/WorldView";
+import {Dispatcher, DispatcherInjectSymbol} from "./Dispatchers/Dispatcher";
+import { Router,IRouter, IRouterInjectSymbol, Route } from "./Router/Router";
+import { IHelloStore, IHelloStoreInjectSymbol, HelloStore } from "./Stores/HelloStore";
+import { IWorldStoreInjectSymbol, WorldStore, IWorldStore } from "./Stores/WorldStore";
+import { IHelloViewInjectSymbol, IHelloView, HelloView } from "./Views/HelloView";
+import { IWorldViewInjectSymbol, IWorldView, WorldView } from "./Views/WorldView";
 
 
 const container = new Container();

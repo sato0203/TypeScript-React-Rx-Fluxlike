@@ -4,6 +4,7 @@ var fs = require('fs');
 var app = express();
 var configure = {}
 var request = require("request")
+var projectName = process.argv[2];
 
 try{
   configure = JSON.parse(fs.readFileSync('configure-local.json', 'utf-8'));
@@ -17,12 +18,14 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json())
 
-// HTTPリクエストを受け取る部分
+//HTTPリクエストを受け取る部分
 
+//SPA用JSファイル読み込み
 app.get('/js', function (req, res) {
-  res.sendFile(__dirname + "/public/bundle.js")
+  res.sendFile(__dirname + `/js/${projectName}.bundle.js`)
 });
 
+//OAuthToken読み込み
 app.post('/oauth/token',function(req,res){
   console.log("呼ばれた")
   let authJson = req.body;
@@ -36,12 +39,12 @@ app.post('/oauth/token',function(req,res){
 })
 
 app.get('/*', function (req, res) {
-  res.sendFile(__dirname + "/public/index.html")
+  res.sendFile(__dirname + "/html/index.html")
 });
 
 // サーバーを起動する部分
 var server = app.listen(5000, function () {
   var host = server.address().address;
   var port = server.address().port;
-  console.log('Example app listening at http://%s:%s', host, port);
+  console.log(`${projectName} app listening at http://%s:%s`, host, port);
 });

@@ -1,5 +1,8 @@
 var gulp = require('gulp');
 var sp = require('child_process').spawn;
+var minimist = require("minimist");
+var projectName = minimist(process.argv.slice(2)).p;
+var fs = require("fs");
 
 var server = null;
 
@@ -18,7 +21,15 @@ gulp.task('up',function(){
   if(server != null){
       server.kill();
   }
-  server = sp("node",["server.js"]);
+  if(projectName == undefined){
+      throw new Error("\"gulp -p [プロジェクト名]の形式で、対象となるSPAプロジェクトを選択してください\"")
+  }
+  
+  if(fs.readdirSync("./js").filter(x => x == `${projectName}.bundle.js`).length == 0){
+      throw new Error(`プロジェクト:${projectName}は存在しません`)
+  }
+  
+  server = sp("node",["server.js",projectName]);
   server.stdout.on('data',(data) => {
       console.log("server:"+data.toString())
   })
